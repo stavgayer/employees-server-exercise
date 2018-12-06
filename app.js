@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const keys = require("./config/keys");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
+const morgan = require('morgan');
 
 //Check env
 const isProduction = process.env.NODE_ENV === "production";
@@ -15,8 +15,11 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(bodyParser.json());
-app.use(require("./routes"));
 
+require("./models/Employees");
+require("./models/EmployeesRules");
+require("./models/Attendance");
+app.use(require("./routes"));
 
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
